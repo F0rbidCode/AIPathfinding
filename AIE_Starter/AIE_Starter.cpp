@@ -26,6 +26,7 @@
 #include "raygui.h"
 #include "Pathfinding.h"
 #include "NodeMap.h"
+#include "PathAgent.h"
 
 #include <string>
 
@@ -40,6 +41,9 @@ int main(int argc, char* argv[])
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 
+    float time = (float)GetTime();
+    float deltaTime;
+
     SetTargetFPS(60);
     //--------------------------------------------------------------------------------------
 
@@ -52,18 +56,25 @@ int main(int argc, char* argv[])
 
     //create a ASCII map
     std::vector<std::string> asciiMap;
-    asciiMap.push_back("000000000000");
-    asciiMap.push_back("010111011100");
-    asciiMap.push_back("010101110110");
-    asciiMap.push_back("010100000000");
-    asciiMap.push_back("010111111110");
-    asciiMap.push_back("010000001000");
-    asciiMap.push_back("011111111110");
-    asciiMap.push_back("000000000000");
+    asciiMap.push_back("0000000000000000000000000");
+    asciiMap.push_back("0101110111000000011110000");
+    asciiMap.push_back("0101011101100000010010000");
+    asciiMap.push_back("0101000000000000010011100");
+    asciiMap.push_back("0101111111100000010000100");
+    asciiMap.push_back("0100000010000000110000110");
+    asciiMap.push_back("0111111111111111111111010");
+    asciiMap.push_back("0000000000000000000011110");
+    asciiMap.push_back("0000000010000111100010100");
+    asciiMap.push_back("0000000011110100111110100");
+    asciiMap.push_back("0000000000010110000010100");
+    asciiMap.push_back("0000000000010010000010100");
+    asciiMap.push_back("0000000000011110000010110");
+    asciiMap.push_back("0000000000000000000011110");
+    
 
     NodeMap nodeMap;    
 
-    nodeMap.Initialise(asciiMap, 50);
+    nodeMap.Initialise(asciiMap, 32);
 
     Node* start = nodeMap.GetNode(1, 1);
     Node* end = nodeMap.GetNode(10, 2);
@@ -71,28 +82,44 @@ int main(int argc, char* argv[])
     std::vector<Node*> nodeMapPath = DijkstrasSearch(start, end);
     Color lineColor = { 255, 255, 255, 255 };
 
+    //initialise our path agent
+    PathAgent agent;
+    agent.setNode(start);
+    agent.setSpeed(64);
+
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
         // Update
+        //calculate delta time
+        float fTime = (float)GetTime();
+        deltaTime = fTime - time;
+        time = fTime;
+
+
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
         //restet the start position based on the left click of the mouse
-        if (IsMouseButtonPressed(0))
+       /* if (IsMouseButtonPressed(0))
         {
             Vector2 mousePos = GetMousePosition();
             start = nodeMap.GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
             nodeMapPath = DijkstrasSearch(start, end);
-        }
+        }*/
         //reset the end position based on theright click of the mouse
         if (IsMouseButtonPressed(1))
         {
             Vector2 mousePos = GetMousePosition();
             end = nodeMap.GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
-            nodeMapPath = DijkstrasSearch(start, end);
+            //nodeMapPath = DijkstrasSearch(start, end);
+            //start = agent.GetCurrentNode();
+            agent.GoToNode(end);
         }
+
+        agent.Update(deltaTime);
+        agent.Draw();
 
         // Draw
         //----------------------------------------------------------------------------------
@@ -102,7 +129,7 @@ int main(int argc, char* argv[])
         ClearBackground(DARKGRAY);
 
         nodeMap.Draw();
-        nodeMap.DrawPath(nodeMapPath);
+        nodeMap.DrawPath(agent.m_path);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
