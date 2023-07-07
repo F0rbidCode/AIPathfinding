@@ -1,7 +1,7 @@
 #include "PathAgent.h"
 void PathAgent::GoToNode(Node* node)
 {
-	m_path = DijkstrasSearch(m_currentNode, node); //calculate the path to the end node
+	m_path = AStarSearch(m_currentNode, node); //calculate the path to the end node
 	m_currentIndex = 0; //reset the current index to 0
 }
 

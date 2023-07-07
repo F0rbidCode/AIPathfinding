@@ -28,13 +28,22 @@ namespace AIForGames
         float gScore;
         Node* previous;
 
-        
+        //used for A*
+        float hScore;
+        float fScore;        
     };
 
     std::vector<Node*> DijkstrasSearch(Node* startNode, Node* endNode);
+    std::vector<Node*> AStarSearch(Node* startNode, Node* endNode);
 
     //function to compare the gScore of given nodes
     bool CompareGScore(Node*& first, Node*& second);
+
+    //function to compare the fScore of given nodes
+    bool CompareFScore(Node*& first, Node*& second);
+
+    //function to calculate the hScore
+    float Heuristic(Node* current, Node* end);
 
     
 }
