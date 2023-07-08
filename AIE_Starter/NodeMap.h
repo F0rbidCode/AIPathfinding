@@ -25,5 +25,8 @@ public:
 
 	//function used to get the closes node to the mouse curser
 	Node* GetClosestNode(glm::vec2 worldPos);
+
+	//function used to get the closes node to the mouse curser
+	Node* ToggleClosestNode(glm::vec2 worldPos, std::vector<std::string> &ascIIMap);
 };
 

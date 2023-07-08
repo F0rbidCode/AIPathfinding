@@ -47,13 +47,6 @@ int main(int argc, char* argv[])
     SetTargetFPS(60);
     //--------------------------------------------------------------------------------------
 
-
-    Node* a = new Node();
-    a->position = glm::vec2(125.0f, 75.0f);
-    Node* b = new Node();
-    b->position = glm::vec2(250.0f, 75.0f);
-
-
     //create a ASCII map
     std::vector<std::string> asciiMap;
     asciiMap.push_back("0000000000000000000000000");
@@ -79,6 +72,8 @@ int main(int argc, char* argv[])
     Node* start = nodeMap.GetNode(1, 1);
     Node* end = nodeMap.GetNode(10, 2);
 
+    
+
     std::vector<Node*> nodeMapPath = DijkstrasSearch(start, end);
     Color lineColor = { 255, 255, 255, 255 };
 
@@ -87,6 +82,14 @@ int main(int argc, char* argv[])
     agent.setNode(start);
     agent.setSpeed(64);
 
+    //initialize the player
+    PathAgent player;
+    player.setNode(end);
+    player.setSpeed(50);
+
+    glm::vec2 playerPos;
+    glm::vec2 playerTarget = player.GetPosition();
+    glm::vec2 agentPos;
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -102,24 +105,75 @@ int main(int argc, char* argv[])
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
         //restet the start position based on the left click of the mouse
-       /* if (IsMouseButtonPressed(0))
+        if (IsMouseButtonPressed(0))
         {
+            //start = agent.GetCurrentNode();
+           // end = agent.GetTarget();
+
             Vector2 mousePos = GetMousePosition();
-            start = nodeMap.GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
-            nodeMapPath = DijkstrasSearch(start, end);
-        }*/
+            if (nodeMap.GetClosestNode(glm::vec2(mousePos.x, mousePos.y)) == player.GetCurrentNode())
+            {
+            
+            }
+            else if (nodeMap.GetClosestNode(glm::vec2(mousePos.x, mousePos.y)) == agent.GetCurrentNode())
+            {
+            }
+            else
+            {
+                nodeMap.ToggleClosestNode(glm::vec2(mousePos.x, mousePos.y), asciiMap);
+                nodeMap.Initialise(asciiMap, 32);
+
+
+                player.setNode(nodeMap.GetClosestNode(playerPos));
+                agent.setNode(nodeMap.GetClosestNode(agentPos));
+
+                agent.setTarget(player.GetCurrentNode());
+                player.setTarget(nodeMap.GetClosestNode(playerTarget));
+
+
+                //agent.setNode(start);
+                //agent.setTarget(end);
+
+                //start = nodeMap.GetClosestNode(agent.GetPosition());
+                //end = nodeMap.GetNode(12, 12);
+
+                ///nodeMapPath = DijkstrasSearch(start, end);
+            }
+        }
         //reset the end position based on theright click of the mouse
         if (IsMouseButtonPressed(1))
         {
             Vector2 mousePos = GetMousePosition();
-            end = nodeMap.GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
+           // end = nodeMap.GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
+
+            playerTarget = glm::vec2(mousePos.x, mousePos.y);
+            player.setTarget(nodeMap.GetClosestNode(playerTarget));
+           
             //nodeMapPath = DijkstrasSearch(start, end);
             //start = agent.GetCurrentNode();
-            agent.GoToNode(end);
+            //agent.setTarget(end);
         }
 
+
+        //update position
+        /*start = nodeMap.GetClosestNode(agent.GetPosition());
+        end = nodeMap.GetClosestNode(player.GetPosition());
+        playerPos = nodeMap.GetClosestNode(player.GetPosition());
+        nodeMapPath = DijkstrasSearch(start, playerPos);*/
+        agent.setTarget(player.GetCurrentNode());
+
+        playerPos = player.GetPosition();
+        agentPos = agent.GetPosition();
+
+
+
         agent.Update(deltaTime);
-        agent.Draw();
+        agent.Draw(YELLOW);
+
+       // nodeMapPath = DijkstrasSearch(playerPos, end);
+
+        player.Update(deltaTime);
+        player.Draw(GREEN);
 
         // Draw
         //----------------------------------------------------------------------------------
