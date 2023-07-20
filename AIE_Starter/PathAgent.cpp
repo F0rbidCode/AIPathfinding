@@ -73,7 +73,7 @@ void PathAgent::Update(float deltaTime)
 	}
 }
 
-void PathAgent::Draw()
+void PathAgent::Draw(Color color)
 {
-	DrawCircle((int)m_position.x, (int)m_position.y, 8, YELLOW);
+	DrawCircle((int)m_position.x, (int)m_position.y, 8, color);
 }

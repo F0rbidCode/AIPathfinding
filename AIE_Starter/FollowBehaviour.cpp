@@ -1,4 +1,5 @@
 #include "FollowBehaviour.h"
+#include "Agent.h"
 
 namespace AIForGames
 {

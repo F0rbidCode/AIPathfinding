@@ -12,9 +12,10 @@ public:
 	~Agent() { delete m_current; }
 
 	void Update(float deltaTime);
-	void Draw() { m_pathAgent.Draw(); };
+	void Draw() { m_pathAgent.Draw(m_color); };
 	void setNode(Node* start) { m_pathAgent.setNode(start); }
 	void setSpeed(float speed) { m_pathAgent.setSpeed(speed); }
+	void setColor(Color color) { m_color = color; }
 	void setTarget(Agent* target) { m_target = target; }
 	void GoTo(glm::vec2 point);
 	void GoTo(Node* node) { m_pathAgent.GoToNode(node); };
@@ -30,6 +31,9 @@ public:
 
 	//function to get the position of the pathAgent
 	glm::vec2 GetPosition() { return m_pathAgent.GetPosition(); }
+
+	//function to reset and clear the agents path
+	void Reset() { m_pathAgent.GetPath().clear(); }
 
 private:
 	PathAgent m_pathAgent;

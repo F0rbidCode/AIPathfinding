@@ -1,4 +1,5 @@
 #include "WanderBehaviour.h"
+#include "Agent.h"
 
 void WanderBehaviour::Update(Agent* agent, float deltaTime)
 {

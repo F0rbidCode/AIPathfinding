@@ -24,7 +24,7 @@ public:
 	void setSpeed(float speed) { m_speed = speed; }
 	void Update(float deltaTiem);
 	void GoToNode(Node* node);
-	void Draw();
+	void Draw(Color color);
 
 	//return the current node the agent is on
 	Node* GetCurrentNode() { return m_currentNode; }

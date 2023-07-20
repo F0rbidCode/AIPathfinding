@@ -31,6 +31,7 @@
 #include "GoToPointBehaviour.h"
 #include "WanderBehaviour.h"
 #include "FollowBehaviour.h"
+#include "SelectorBehaviour.h"
 
 #include <string>
 
@@ -98,7 +99,7 @@ int main(int argc, char* argv[])
     Agent agent2(&nodeMap, new WanderBehaviour());
     agent2.setNode(nodeMap.GetRandomNode());
 
-    Agent agent3(&nodeMap, new FollowBehaviour());
+    Agent agent3(&nodeMap, new SelectorBehaviour(new FollowBehaviour(), new WanderBehaviour()));
     agent3.setNode(nodeMap.GetRandomNode());
     agent3.setSpeed(32);
     agent3.setTarget(&agent);
