@@ -17,6 +17,7 @@ private:
 	float m_speed;
 
 public:
+	PathAgent() { m_speed = 64; }
 	std::vector<Node*> m_path;
 	void setNode(Node* start) { m_position = start->position, m_currentNode = start; }
 	void setSpeed(float speed) { m_speed = speed; }

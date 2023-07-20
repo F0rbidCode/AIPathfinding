@@ -27,6 +27,8 @@
 #include "Pathfinding.h"
 #include "NodeMap.h"
 #include "PathAgent.h"
+#include "Agent.h"
+#include "GoToPointBehaviour.h"
 
 #include <string>
 
@@ -83,9 +85,13 @@ int main(int argc, char* argv[])
     Color lineColor = { 255, 255, 255, 255 };
 
     //initialise our path agent
-    PathAgent agent;
+    //PathAgent agent;    
+    //agent.setNode(start);
+    //agent.setSpeed(64);
+
+    //initialise agent
+    Agent agent(&nodeMap, new GoToPointBehaviour());    
     agent.setNode(start);
-    agent.setSpeed(64);
 
 
     // Main game loop
@@ -109,17 +115,16 @@ int main(int argc, char* argv[])
             nodeMapPath = DijkstrasSearch(start, end);
         }*/
         //reset the end position based on theright click of the mouse
-        if (IsMouseButtonPressed(1))
-        {
-            Vector2 mousePos = GetMousePosition();
-            end = nodeMap.GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
-            //nodeMapPath = DijkstrasSearch(start, end);
-            //start = agent.GetCurrentNode();
-            agent.GoToNode(end);
-        }
+        //if (IsMouseButtonPressed(1))
+        //{
+        //    Vector2 mousePos = GetMousePosition();
+        //    end = nodeMap.GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
+        //    //nodeMapPath = DijkstrasSearch(start, end);
+        //    //start = agent.GetCurrentNode();
+        //    //agent.GoToNode(end);
+        //}
 
-        agent.Update(deltaTime);
-        agent.Draw();
+       
 
         // Draw
         //----------------------------------------------------------------------------------
@@ -129,7 +134,10 @@ int main(int argc, char* argv[])
         ClearBackground(DARKGRAY);
 
         nodeMap.Draw();
-        nodeMap.DrawPath(agent.m_path);
+        //nodeMap.DrawPath(agent.m_path);
+
+        agent.Update(deltaTime);
+        agent.Draw();
 
         EndDrawing();
         //----------------------------------------------------------------------------------
