@@ -29,6 +29,7 @@
 #include "PathAgent.h"
 #include "Agent.h"
 #include "GoToPointBehaviour.h"
+#include "WanderBehaviour.h"
 
 #include <string>
 
@@ -93,6 +94,9 @@ int main(int argc, char* argv[])
     Agent agent(&nodeMap, new GoToPointBehaviour());    
     agent.setNode(start);
 
+    Agent agent2(&nodeMap, new WanderBehaviour());
+    agent2.setNode(nodeMap.GetRandomNode());
+
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -138,6 +142,9 @@ int main(int argc, char* argv[])
 
         agent.Update(deltaTime);
         agent.Draw();
+
+        agent2.Update(deltaTime);
+        agent2.Draw();
 
         EndDrawing();
         //----------------------------------------------------------------------------------

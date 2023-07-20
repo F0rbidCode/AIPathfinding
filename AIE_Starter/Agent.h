@@ -15,6 +15,13 @@ public:
 	void Draw() { m_pathAgent.Draw(); };
 	void setNode(Node* start) { m_pathAgent.setNode(start); }
 	void GoTo(glm::vec2 point);
+	void GoTo(Node* node) { m_pathAgent.GoToNode(node); };
+
+	//helper function to report when path is complete
+	bool PathComplete();
+
+	//function to return the nodeMap
+	NodeMap* getNodeMap() { return m_nodeMap; }
 
 private:
 	PathAgent m_pathAgent;

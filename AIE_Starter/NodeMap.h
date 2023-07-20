@@ -13,6 +13,9 @@ class NodeMap
 
 	Node** m_nodes;
 
+	//used to find and return node pointers
+	Node* node;
+
 public:
 	~NodeMap();//destructor
 
@@ -25,5 +28,8 @@ public:
 
 	//function used to get the closes node to the mouse curser
 	Node* GetClosestNode(glm::vec2 worldPos);
+
+	//function to return a random navigatable node
+	Node* GetRandomNode();
 };
 

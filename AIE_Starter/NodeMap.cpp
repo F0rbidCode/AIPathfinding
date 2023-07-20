@@ -10,6 +10,10 @@ NodeMap:: ~NodeMap()
 			delete GetNode(x, y);
 		}
 	}
+	if (node) 
+	{
+		delete node; node = nullptr;
+	}
 }
 
 void NodeMap::Initialise(std::vector<std::string> asciiMap, int cellSize)
@@ -125,4 +129,21 @@ Node* NodeMap::GetClosestNode(glm::vec2 worldPos)
 	if (j < 0 || j >= m_width) return nullptr;
 
 	return GetNode(i, j);
+}
+
+
+//function to return a random node
+Node* NodeMap::GetRandomNode()
+{
+	//initialise a node pointer
+	node = nullptr;
+	while (node == nullptr)
+	{
+		//get random x and y coordinates
+		int x = rand() % m_width;
+		int y = rand() % m_height;
+		//get a node at those points
+		node = GetNode(x, y);
+	}
+	return node;
 }

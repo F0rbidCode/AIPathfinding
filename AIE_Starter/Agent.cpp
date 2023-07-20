@@ -17,3 +17,8 @@ void Agent::GoTo(glm::vec2 point)
 	Node* end = m_nodeMap->GetClosestNode(point);
 	m_pathAgent.GoToNode(end);
 }
+
+bool Agent::PathComplete()
+{
+	return m_pathAgent.GetPath().empty();
+}
