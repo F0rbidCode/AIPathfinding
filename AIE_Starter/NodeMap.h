@@ -31,5 +31,8 @@ public:
 
 	//function to return a random navigatable node
 	Node* GetRandomNode();
+
+	//function to return cell size
+	float GetCellSize() { return m_cellSize; }
 };
 

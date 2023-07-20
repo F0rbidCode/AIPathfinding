@@ -30,6 +30,7 @@
 #include "Agent.h"
 #include "GoToPointBehaviour.h"
 #include "WanderBehaviour.h"
+#include "FollowBehaviour.h"
 
 #include <string>
 
@@ -97,6 +98,11 @@ int main(int argc, char* argv[])
     Agent agent2(&nodeMap, new WanderBehaviour());
     agent2.setNode(nodeMap.GetRandomNode());
 
+    Agent agent3(&nodeMap, new FollowBehaviour());
+    agent3.setNode(nodeMap.GetRandomNode());
+    agent3.setSpeed(32);
+    agent3.setTarget(&agent);
+
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -145,6 +151,9 @@ int main(int argc, char* argv[])
 
         agent2.Update(deltaTime);
         agent2.Draw();
+
+        agent3.Update(deltaTime);
+        agent3.Draw();
 
         EndDrawing();
         //----------------------------------------------------------------------------------

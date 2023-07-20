@@ -31,5 +31,8 @@ public:
 
 	//return the path agents path
 	vector<Node*> GetPath() { return m_path; }
+
+	//return path agents current position
+	glm::vec2 GetPosition() { return m_position; }
 };
 

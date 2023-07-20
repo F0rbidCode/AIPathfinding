@@ -14,6 +14,8 @@ public:
 	void Update(float deltaTime);
 	void Draw() { m_pathAgent.Draw(); };
 	void setNode(Node* start) { m_pathAgent.setNode(start); }
+	void setSpeed(float speed) { m_pathAgent.setSpeed(speed); }
+	void setTarget(Agent* target) { m_target = target; }
 	void GoTo(glm::vec2 point);
 	void GoTo(Node* node) { m_pathAgent.GoToNode(node); };
 
@@ -23,10 +25,19 @@ public:
 	//function to return the nodeMap
 	NodeMap* getNodeMap() { return m_nodeMap; }
 
+	//function to return the target agent
+	Agent* getTarget() { return m_target; }
+
+	//function to get the position of the pathAgent
+	glm::vec2 GetPosition() { return m_pathAgent.GetPosition(); }
+
 private:
 	PathAgent m_pathAgent;
 	Behaviour* m_current;
 	NodeMap* m_nodeMap;
 	Color m_color;
+
+	//pointer to a target agent
+	Agent* m_target; 
 };
 
