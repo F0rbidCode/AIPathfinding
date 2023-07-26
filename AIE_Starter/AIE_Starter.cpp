@@ -32,6 +32,9 @@
 #include "WanderBehaviour.h"
 #include "FollowBehaviour.h"
 #include "SelectorBehaviour.h"
+#include "DistanceCondition.h"
+#include "State.h"
+#include "FiniteStateMechine.h"
 
 #include <string>
 
@@ -66,7 +69,7 @@ int main(int argc, char* argv[])
     asciiMap.push_back("0101011101100000010010000");
     asciiMap.push_back("0101000000000000010011100");
     asciiMap.push_back("0101111111100000010000100");
-    asciiMap.push_back("0100000010000000110000110");
+    asciiMap.push_back("0100000000000000110000110");
     asciiMap.push_back("0111111111111111111111010");
     asciiMap.push_back("0000000000000000000011110");
     asciiMap.push_back("0000000010000111100010100");
@@ -88,9 +91,25 @@ int main(int argc, char* argv[])
     Color lineColor = { 255, 255, 255, 255 };
 
     //initialise our path agent
-    //PathAgent agent;    
-    //agent.setNode(start);
-    //agent.setSpeed(64);
+    /*PathAgent agent;    
+    agent.setNode(start);
+    agent.setSpeed(64);*/
+
+    //set up a FSM, we're going to have two states with their own conditions
+    DistanceCondition* closerThan5 = new DistanceCondition(5.0f * nodeMap.GetCellSize(), true);
+    DistanceCondition* furtherThan7 = new DistanceCondition(7.0f * nodeMap.GetCellSize(), false);
+
+    //register these states with the FSM, so its responsible for deleting them now
+    State* wanderState = new State(new WanderBehaviour());
+    State* followState = new State(new FollowBehaviour());
+    wanderState->AddTransition(closerThan5, followState);
+    followState->AddTransition(furtherThan7, wanderState);
+
+    //make a finite state machine that starts off wandering
+    FiniteStateMechine* fsm = new FiniteStateMechine(wanderState);
+    fsm->AddState(wanderState);
+    fsm->AddState(followState);
+
 
     //initialise agent
     Agent agent(&nodeMap, new GoToPointBehaviour());    
@@ -99,7 +118,7 @@ int main(int argc, char* argv[])
     Agent agent2(&nodeMap, new WanderBehaviour());
     agent2.setNode(nodeMap.GetRandomNode());
 
-    Agent agent3(&nodeMap, new SelectorBehaviour(new FollowBehaviour(), new WanderBehaviour()));
+    Agent agent3(&nodeMap, fsm);
     agent3.setNode(nodeMap.GetRandomNode());
     agent3.setSpeed(32);
     agent3.setTarget(&agent);

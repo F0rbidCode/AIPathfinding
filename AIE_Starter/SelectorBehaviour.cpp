@@ -4,7 +4,7 @@
 //update function
 void SelectorBehaviour::Update(Agent* agent, float deltaTime)
 {
-	if (glm::distance(agent->GetPosition(), agent->getTarget()->GetPosition()) < agent->getNodeMap()->GetCellSize() * 5)
+	if (glm::distance(agent->GetPosition(), agent->GetTarget()->GetPosition()) < agent->getNodeMap()->GetCellSize() * 5)
 	{
 		SetBehaviour(m_b1, agent);
 		agent->setColor({ 255,0,0,255 });

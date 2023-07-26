@@ -1,6 +1,6 @@
 #pragma once
 #include "Behaviour.h"
-#include "agent.h"
+#include "Agent.h"
 
 namespace AIForGames
 {
@@ -10,6 +10,8 @@ namespace AIForGames
 		glm::vec2 lastTargetPosition;
 	public:
 		virtual void Update(Agent* agent, float deltaTime);
+		
+		void Enter(Agent* agent);
 
 	};
 }

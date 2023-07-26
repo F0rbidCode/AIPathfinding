@@ -1,6 +1,8 @@
 #include "Agent.h"
 #include "Behaviour.h"
 
+Agent::Agent(NodeMap* _nodeMap, Behaviour* _behaviour) : m_current(_behaviour), m_nodeMap(_nodeMap), m_color({ 255, 255, 0, 255 }) { m_current->Enter(this); }
+
 void Agent::Update(float deltaTime)
 {
 	if (m_current)//if current behaviour not = NULL

@@ -2,13 +2,15 @@
 #include "PathAgent.h"
 #include "NodeMap.h"
 
+
 class Behaviour;
 
 class Agent
 {
 public:
 	Agent() {}
-	Agent(NodeMap* _nodeMap, Behaviour* _behaviour) : m_current(_behaviour), m_nodeMap(_nodeMap), m_color({ 255, 255, 0, 255 }) {}
+	Agent(NodeMap* _nodeMap, Behaviour* _behaviour); /*: m_current(_behaviour), m_nodeMap(_nodeMap), m_color({ 255, 255, 0, 255 }) { m_current->Enter(this); }*/
+	
 	~Agent() { delete m_current; }
 
 	void Update(float deltaTime);
@@ -27,7 +29,7 @@ public:
 	NodeMap* getNodeMap() { return m_nodeMap; }
 
 	//function to return the target agent
-	Agent* getTarget() { return m_target; }
+	Agent* GetTarget() { return m_target; }
 
 	//function to get the position of the pathAgent
 	glm::vec2 GetPosition() { return m_pathAgent.GetPosition(); }

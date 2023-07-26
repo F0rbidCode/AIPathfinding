@@ -142,12 +142,16 @@
     <ClCompile Include="Agent.cpp" />
     <ClCompile Include="AIE_Starter.cpp" />
     <ClCompile Include="Behaviour.cpp" />
+    <ClCompile Include="Condition.cpp" />
+    <ClCompile Include="DistanceCondition.cpp" />
+    <ClCompile Include="FiniteStateMechine.cpp" />
     <ClCompile Include="FollowBehaviour.cpp" />
     <ClCompile Include="GoToPointBehaviour.cpp" />
     <ClCompile Include="NodeMap.cpp" />
     <ClCompile Include="PathAgent.cpp" />
     <ClCompile Include="Pathfinding.cpp" />
     <ClCompile Include="SelectorBehaviour.cpp" />
+    <ClCompile Include="State.cpp" />
     <ClCompile Include="WanderBehaviour.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -156,12 +160,16 @@
   <ItemGroup>
     <ClInclude Include="Agent.h" />
     <ClInclude Include="Behaviour.h" />
+    <ClInclude Include="Condition.h" />
+    <ClInclude Include="DistanceCondition.h" />
+    <ClInclude Include="FiniteStateMechine.h" />
     <ClInclude Include="FollowBehaviour.h" />
     <ClInclude Include="GoToPointBehaviour.h" />
     <ClInclude Include="NodeMap.h" />
     <ClInclude Include="PathAgent.h" />
     <ClInclude Include="Pathfinding.h" />
     <ClInclude Include="SelectorBehaviour.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="WanderBehaviour.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
