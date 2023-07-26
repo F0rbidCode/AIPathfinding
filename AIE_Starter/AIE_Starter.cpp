@@ -35,6 +35,7 @@
 #include "DistanceCondition.h"
 #include "State.h"
 #include "FiniteStateMechine.h"
+#include "UtilityAI.h"
 
 #include <string>
 
@@ -56,10 +57,10 @@ int main(int argc, char* argv[])
     //--------------------------------------------------------------------------------------
 
 
-    Node* a = new Node();
+   /* Node* a = new Node();
     a->position = glm::vec2(125.0f, 75.0f);
     Node* b = new Node();
-    b->position = glm::vec2(250.0f, 75.0f);
+    b->position = glm::vec2(250.0f, 75.0f);*/
 
 
     //create a ASCII map
@@ -69,7 +70,7 @@ int main(int argc, char* argv[])
     asciiMap.push_back("0101011101100000010010000");
     asciiMap.push_back("0101000000000000010011100");
     asciiMap.push_back("0101111111100000010000100");
-    asciiMap.push_back("0100000000000000110000110");
+    asciiMap.push_back("0100000010000000110000110");
     asciiMap.push_back("0111111111111111111111010");
     asciiMap.push_back("0000000000000000000011110");
     asciiMap.push_back("0000000010000111100010100");
@@ -110,6 +111,12 @@ int main(int argc, char* argv[])
     fsm->AddState(wanderState);
     fsm->AddState(followState);
 
+    //initialise the UtilityAI
+    UtilityAI* utilityAI = new UtilityAI();
+    utilityAI->AddBehaviour(new WanderBehaviour());
+    utilityAI->AddBehaviour(new FollowBehaviour());
+
+
 
     //initialise agent
     Agent agent(&nodeMap, new GoToPointBehaviour());    
@@ -118,7 +125,7 @@ int main(int argc, char* argv[])
     Agent agent2(&nodeMap, new WanderBehaviour());
     agent2.setNode(nodeMap.GetRandomNode());
 
-    Agent agent3(&nodeMap, fsm);
+    Agent agent3(&nodeMap, utilityAI);
     agent3.setNode(nodeMap.GetRandomNode());
     agent3.setSpeed(32);
     agent3.setTarget(&agent);
@@ -183,6 +190,32 @@ int main(int argc, char* argv[])
     //--------------------------------------------------------------------------------------   
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
+    
+    //clean up
+
+    delete start;
+    start = nullptr;
+
+    delete end;
+    end = nullptr;
+
+    delete wanderState;
+    wanderState = nullptr;
+
+    delete followState;
+    followState = nullptr;
+
+    //delete closerThan5;
+    //closerThan5 = nullptr;
+
+    //delete furtherThan7;
+    //furtherThan7 = nullptr;
+
+    delete fsm;
+    fsm = nullptr;
+
+    delete utilityAI;
+    utilityAI = nullptr;
 
     return 0;
 }

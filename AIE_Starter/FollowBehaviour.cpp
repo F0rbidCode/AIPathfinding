@@ -23,4 +23,18 @@ namespace AIForGames
 		agent->setColor({ 255,0,0,255 });
 		agent->Reset();
 	}
+
+	float FollowBehaviour::Evaluate(Agent* agent)
+	{
+		Agent* target = agent->GetTarget(); //get the target of the agent
+		float dist = glm::distance(target->GetPosition(), agent->GetPosition()); //get the distance between the agent and its target
+
+		float eval = 10 * agent->getNodeMap()->GetCellSize() - dist; //calculate the eval score bassed on the number of cells between the agent and its target
+
+		if (eval < 0) //if eval is greater then 0
+		{
+			eval = 0; //set eval to 0
+		}
+		return eval; //return the evaluated score
+	}
 }

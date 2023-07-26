@@ -8,5 +8,8 @@ public:
 	virtual void Update(Agent* agent, float deltaTime);
 
 	void Enter(Agent* agent);
+
+	//evaluate used for UtilityAI
+	float Evaluate(Agent* agent);
 };
 

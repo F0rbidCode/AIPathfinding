@@ -13,6 +13,8 @@ namespace AIForGames
 		
 		void Enter(Agent* agent);
 
+		//evaluate used for UtilityAI
+		float Evaluate(Agent* agent);
 	};
 }
 
