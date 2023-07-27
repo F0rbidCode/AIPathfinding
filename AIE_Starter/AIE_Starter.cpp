@@ -25,6 +25,7 @@
 #define RAYGUI_SUPPORT_ICONS
 #include "raygui.h"
 #include "Pathfinding.h"
+#include "memory.h"
 #include "NodeMap.h"
 #include "PathAgent.h"
 #include "Agent.h"
@@ -38,6 +39,8 @@
 #include "UtilityAI.h"
 
 #include <string>
+
+
 
 using namespace AIForGames;
 
@@ -70,8 +73,8 @@ int main(int argc, char* argv[])
     asciiMap.push_back("0101011101100000010010000");
     asciiMap.push_back("0101000000000000010011100");
     asciiMap.push_back("0101111111100000010000100");
-    asciiMap.push_back("0100000010000000110000110");
-    asciiMap.push_back("0111111111111111111111010");
+    asciiMap.push_back("0100000000000000110000110");
+    asciiMap.push_back("0111111111011111111111010");
     asciiMap.push_back("0000000000000000000011110");
     asciiMap.push_back("0000000010000111100010100");
     asciiMap.push_back("0000000011110100111110100");
@@ -88,8 +91,8 @@ int main(int argc, char* argv[])
     Node* start = nodeMap.GetNode(1, 1);
     Node* end = nodeMap.GetNode(10, 2);
 
-    std::vector<Node*> nodeMapPath = DijkstrasSearch(start, end);
-    Color lineColor = { 255, 255, 255, 255 };
+    /*std::vector<Node*> nodeMapPath = DijkstrasSearch(start, end);
+    Color lineColor = { 255, 255, 255, 255 };*/
 
     //initialise our path agent
     /*PathAgent agent;    
@@ -125,7 +128,7 @@ int main(int argc, char* argv[])
     Agent agent2(&nodeMap, new WanderBehaviour());
     agent2.setNode(nodeMap.GetRandomNode());
 
-    Agent agent3(&nodeMap, utilityAI);
+    Agent agent3(&nodeMap, fsm);
     agent3.setNode(nodeMap.GetRandomNode());
     agent3.setSpeed(32);
     agent3.setTarget(&agent);
@@ -193,23 +196,11 @@ int main(int argc, char* argv[])
     
     //clean up
 
-    /*delete start;
-    start = nullptr;
-
-    delete end;
-    end = nullptr;
-
-    delete wanderState;
-    wanderState = nullptr;
-
-    delete followState;
-    followState = nullptr;
-
     delete fsm;
     fsm = nullptr;
 
     delete utilityAI;
-    utilityAI = nullptr;*/
+    utilityAI = nullptr;
 
     return 0;
 }

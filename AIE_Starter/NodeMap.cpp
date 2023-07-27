@@ -11,6 +11,8 @@ NodeMap:: ~NodeMap()
 			delete GetNode(x, y);
 		}
 	}
+	delete m_nodes;
+	m_nodes = nullptr;
 }
 
 void NodeMap::Initialise(std::vector<std::string> asciiMap, int cellSize)
