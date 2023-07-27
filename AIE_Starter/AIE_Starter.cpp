@@ -84,9 +84,10 @@ int main(int argc, char* argv[])
     asciiMap.push_back("0000000000000000000011110");
     
 
-    NodeMap nodeMap;    
+    NodeMap nodeMap;   
+    const int CELL_SIZE = 32; //used to contolre the size of each node
 
-    nodeMap.Initialise(asciiMap, 32);
+    nodeMap.Initialise(asciiMap, CELL_SIZE);
 
     Node* start = nodeMap.GetNode(1, 1);
     Node* end = nodeMap.GetNode(10, 2);
@@ -147,22 +148,33 @@ int main(int argc, char* argv[])
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
-        //restet the start position based on the left click of the mouse
-       /* if (IsMouseButtonPressed(0))
+        ////////////////////////////////////////////////// 
+        //left click is handled by the GoToPoint Behaviour
+        //////////////////////////////////////////////////
+        
+        //use the right click to put up and take down walls
+        if (IsMouseButtonPressed(1))
         {
-            Vector2 mousePos = GetMousePosition();
-            start = nodeMap.GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
-            nodeMapPath = DijkstrasSearch(start, end);
-        }*/
-        //reset the end position based on theright click of the mouse
-        //if (IsMouseButtonPressed(1))
-        //{
-        //    Vector2 mousePos = GetMousePosition();
-        //    end = nodeMap.GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
-        //    //nodeMapPath = DijkstrasSearch(start, end);
-        //    //start = agent.GetCurrentNode();
-        //    //agent.GoToNode(end);
-        //}
+            //get mouse position and call toggle node
+            nodeMap.ToggleClosesNode(glm::vec2(GetMousePosition().x, GetMousePosition().y), asciiMap);
+
+            //delete current node map
+            nodeMap.~NodeMap();
+
+            //call initialise on the node map with the modified ascii map
+            nodeMap.Initialise(asciiMap, CELL_SIZE);
+
+            //update all agents current node
+            agent.UpdateNode(nodeMap.GetClosestNode(agent.GetPosition()));
+            agent2.UpdateNode(nodeMap.GetClosestNode(agent2.GetPosition()));
+            agent3.UpdateNode(nodeMap.GetClosestNode(agent3.GetPosition()));
+
+            //recalculate all agent paths
+            agent.GoTo(agent.GetTargetPos());
+            agent2.GoTo(agent2.GetTargetPos());
+            agent3.GoTo(agent3.GetTargetPos());
+
+        }
 
        
 

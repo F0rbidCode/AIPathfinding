@@ -31,6 +31,7 @@ public:
 
 	//function to return the target agent
 	Agent* GetTarget() { return m_target; }
+	glm::vec2 GetTargetPos() { return m_targetPos; }
 
 	//function to get the position of the pathAgent
 	glm::vec2 GetPosition() { return m_pathAgent.GetPosition(); }
@@ -45,6 +46,7 @@ private:
 	Color m_color;
 
 	//pointer to a target agent
-	Agent* m_target; 
+	Agent* m_target;
+	glm::vec2 m_targetPos;
 };
 

@@ -1,10 +1,12 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <vector>
 #include "Pathfinding.h"
 #include "raylib.h"
 
 using namespace AIForGames;
+using namespace std;
 
 class NodeMap
 {
@@ -31,5 +33,9 @@ public:
 
 	//function to return cell size
 	float GetCellSize() { return m_cellSize; }
+
+
+	//function used to togle nodes between walled off and path
+	Node* ToggleClosesNode(glm::vec2 worldPos, vector<string>& ascIIMap);
 };
 

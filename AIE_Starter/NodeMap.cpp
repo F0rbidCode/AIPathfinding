@@ -146,3 +146,25 @@ Node* NodeMap::GetRandomNode()
 	}
 	return node;
 }
+
+//function used to togle nodes between walled off and path
+Node* NodeMap::ToggleClosesNode(glm::vec2 worldPos, vector<string>& ascIIMap)
+{
+	const char emptyNode = '0';
+	const char fullNode = '1';
+
+	int i = (int)(worldPos.x / m_cellSize);
+	if (i < 0 || i >= m_width) return nullptr;
+
+	int j = (int)(worldPos.y / m_cellSize);
+	if (j < 0 || j >= m_width) return nullptr;
+
+	if (ascIIMap[j][i] == emptyNode)
+	{
+		ascIIMap[j][i] = fullNode;
+	}
+	else
+	{
+		ascIIMap[j][i] = emptyNode;
+	}
+}
