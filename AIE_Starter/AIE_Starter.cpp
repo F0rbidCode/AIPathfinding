@@ -73,8 +73,8 @@ int main(int argc, char* argv[])
     asciiMap.push_back("0101011101100000010010000");
     asciiMap.push_back("0101000000000000010011100");
     asciiMap.push_back("0101111111100000010000100");
-    asciiMap.push_back("0100000000000000110000110");
-    asciiMap.push_back("0111111111011111111111010");
+    asciiMap.push_back("0100000010000000110000110");
+    asciiMap.push_back("0111111111101111111111010");
     asciiMap.push_back("0000000000000000000011110");
     asciiMap.push_back("0000000010000111100010100");
     asciiMap.push_back("0000000011110100111110100");

@@ -241,6 +241,10 @@ std::vector<AIForGames::Node*> AIForGames::AStarSearch(Node* startNode, Node* en
 	{
 		path.clear(); //clear path
 	}
+	else if (path.front() != startNode)
+	{
+		path.clear();
+	}
 
 	//return the path
 	return path;
