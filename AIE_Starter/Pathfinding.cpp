@@ -236,6 +236,12 @@ std::vector<AIForGames::Node*> AIForGames::AStarSearch(Node* startNode, Node* en
 		currentNode = currentNode->previous;
 	}
 
+	//if path is only 1 node
+	if (path.size() == 1)
+	{
+		path.clear(); //clear path
+	}
+
 	//return the path
 	return path;
 }

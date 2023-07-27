@@ -193,7 +193,7 @@ int main(int argc, char* argv[])
     
     //clean up
 
-    delete start;
+    /*delete start;
     start = nullptr;
 
     delete end;
@@ -205,17 +205,11 @@ int main(int argc, char* argv[])
     delete followState;
     followState = nullptr;
 
-    //delete closerThan5;
-    //closerThan5 = nullptr;
-
-    //delete furtherThan7;
-    //furtherThan7 = nullptr;
-
     delete fsm;
     fsm = nullptr;
 
     delete utilityAI;
-    utilityAI = nullptr;
+    utilityAI = nullptr;*/
 
     return 0;
 }

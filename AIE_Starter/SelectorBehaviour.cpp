@@ -4,17 +4,17 @@
 //update function
 void SelectorBehaviour::Update(Agent* agent, float deltaTime)
 {
-	if (glm::distance(agent->GetPosition(), agent->GetTarget()->GetPosition()) < agent->getNodeMap()->GetCellSize() * 5)
+	if (glm::distance(agent->GetPosition(), agent->GetTarget()->GetPosition()) < agent->getNodeMap()->GetCellSize() * 5)// if the distance between the agent and target is less then 5 cells
 	{
-		SetBehaviour(m_b1, agent);
-		agent->setColor({ 255,0,0,255 });
+		SetBehaviour(m_b1, agent); //set behaviour to b1 (follow)
+		agent->setColor({ 255,0,0,255 }); //set colour to red
 	}
-	else
+	else //otherwise
 	{
-		SetBehaviour(m_b2, agent);
-		agent->setColor({ 0, 255, 255, 255 });
+		SetBehaviour(m_b2, agent);//set behaviour to b2 (wonder)
+		agent->setColor({ 0, 255, 255, 255 }); //set colour to teal
 	}
-	m_selected->Update(agent, deltaTime);
+	m_selected->Update(agent, deltaTime); //call update on the selected behaviour
 }
 
 //function to set the Behaviour

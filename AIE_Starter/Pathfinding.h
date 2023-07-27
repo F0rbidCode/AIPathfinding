@@ -17,7 +17,7 @@ namespace AIForGames
     };
 
     struct Node {
-        glm::vec2 position;
+        glm::vec2 position; //current position
         std::vector<Edge> connections;
         
         Node() { previous = NULL; } //default constructor

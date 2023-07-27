@@ -10,10 +10,10 @@ void PathAgent::Update(float deltaTime)
 	//if path is empty return
 	if (m_path.empty()) return;
 
-	if (m_path.size() == 1)
+	/*if (m_path.size() == 1)
 	{
 		m_path.insert(m_path.begin(),m_currentNode);
-	}
+	}*/
 	//calculate the distance and unit vecrtor to the next node
 	float distance = sqrt((m_path[m_currentIndex + 1]->position.x - m_position.x) * (m_path[m_currentIndex + 1]->position.x - m_position.x) + (m_path[m_currentIndex + 1]->position.y - m_position.y) * (m_path[m_currentIndex + 1]->position.y - m_position.y));
 	//initialise the vector to hold the unit vector

@@ -9,12 +9,9 @@ using namespace AIForGames;
 class NodeMap
 {
 	int m_width, m_height; //height and width of the node map
-	float m_cellSize;
+	float m_cellSize; //size of each cell
 
-	Node** m_nodes;
-
-	//used to find and return node pointers
-	Node* node;
+	Node** m_nodes; 
 
 public:
 	~NodeMap();//destructor

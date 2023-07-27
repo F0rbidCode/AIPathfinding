@@ -4,9 +4,9 @@
 
 State::~State()
 {
-	for (Behaviour* b : m_behaviours) delete b;
+	for (Behaviour* b : m_behaviours) delete b; //delete all behaviours in m_behaviours
 
-	for (Transition t : m_transitions) delete t.condition;
+	for (Transition t : m_transitions) delete t.condition; //delete all conditions stored in each transition in m_transitions
 }
 
 void State::Update(Agent* agent, float deltaTime)
@@ -17,10 +17,10 @@ void State::Update(Agent* agent, float deltaTime)
 
 void State::AddTransition(DistanceCondition* DC, State* s)
 {
-	Transition t;
+	Transition t; //create new transtion
 
-	t.condition = DC;
-	t.targetState = s;
+	t.condition = DC; //set condition to past in condition
+	t.targetState = s; //set target state to passed in state
 
-	m_transitions.push_back(t);
+	m_transitions.push_back(t); //push transition to m_transitions
 }

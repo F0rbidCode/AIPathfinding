@@ -3,16 +3,13 @@
 //destructor
 NodeMap:: ~NodeMap()
 {
+	//loop through the nodes and delete each node
 	for (int y = 0; y < m_height; y++)
 	{
 		for (int x = 0; x < m_width; x++)
 		{
 			delete GetNode(x, y);
 		}
-	}
-	if (node) 
-	{
-		delete node; node = nullptr;
 	}
 }
 
@@ -136,7 +133,7 @@ Node* NodeMap::GetClosestNode(glm::vec2 worldPos)
 Node* NodeMap::GetRandomNode()
 {
 	//initialise a node pointer
-	node = nullptr;
+	Node* node = nullptr;
 	while (node == nullptr)
 	{
 		//get random x and y coordinates

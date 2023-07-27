@@ -3,16 +3,16 @@
 
 void WanderBehaviour::Update(Agent* agent, float deltaTime)
 {
-	if (agent->PathComplete())
+	if (agent->PathComplete())//check if the current path was completed
 	{
-		agent->GoTo(agent->getNodeMap()->GetRandomNode());
+		agent->GoTo(agent->getNodeMap()->GetRandomNode()); //call go to on agent passing through a new random node
 	}
 }
 
 void WanderBehaviour::Enter(Agent* agent)
 {
-	agent->setColor({ 0, 255, 255, 255 });
-	agent->Reset();
+	agent->setColor({ 0, 255, 255, 255 }); //set colour to teal
+	agent->Reset();//call reset on agent
 }
 
 //evaluate used for UtilityAI

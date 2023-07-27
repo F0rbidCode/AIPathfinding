@@ -7,8 +7,8 @@ using namespace std;
 class UtilityAI : public Behaviour
 {
 private:
-	vector<Behaviour*> m_behaviours;
-	Behaviour* currentBehaviour;
+	vector<Behaviour*> m_behaviours; //vector of accessable behaviours
+	Behaviour* currentBehaviour; //pointer to current behaviour
 
 public:
 

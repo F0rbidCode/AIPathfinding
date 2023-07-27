@@ -16,6 +16,7 @@ public:
 	void Update(float deltaTime);
 	void Draw() { m_pathAgent.Draw(m_color); };
 	void setNode(Node* start) { m_pathAgent.setNode(start); }
+	void UpdateNode(Node* start) { m_pathAgent.UpdateNode(start); } //used to update the path agents node without it changing its x,y position
 	void setSpeed(float speed) { m_pathAgent.setSpeed(speed); }
 	void setColor(Color color) { m_color = color; }
 	void setTarget(Agent* target) { m_target = target; }

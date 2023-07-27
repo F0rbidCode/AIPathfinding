@@ -3,7 +3,7 @@
 #include "Condition.h"
 #include "DistanceCondition.h"
 
-class Behaviour;
+class Behaviour; //forward decleration of behaviour class
 
 using namespace std;
 class State
@@ -11,13 +11,13 @@ class State
 public:
 	struct Transition
 	{
-		Condition* condition;
-		State* targetState;
+		Condition* condition; //pointer to the condition of the transition
+		State* targetState; //pointer to the state the transition will move to
 	};
 
 private:
-	vector<Behaviour*>  m_behaviours;
-	std::vector<Transition> m_transitions;
+	vector<Behaviour*>  m_behaviours; //vectore of behaviours the state will access
+	std::vector<Transition> m_transitions; //vector of transitions to move between states
 
 public:
 	State();

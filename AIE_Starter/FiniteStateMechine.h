@@ -5,10 +5,10 @@
 class FiniteStateMechine : public Behaviour
 {
 private:
-	std::vector<State*> m_states;
+	std::vector<State*> m_states; //vector to hold states
 
-	State* m_currentState;
-	State* m_newState;
+	State* m_currentState; //pointer to the current state
+	State* m_newState; //pointer to the next state
 
 public:
 	FiniteStateMechine(State* s) : m_currentState(s), m_newState(nullptr) {}
