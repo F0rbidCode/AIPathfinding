@@ -25,7 +25,7 @@
 #define RAYGUI_SUPPORT_ICONS
 #include "raygui.h"
 #include "Pathfinding.h"
-#include "memory.h"
+//#include "memory.h"
 #include "NodeMap.h"
 #include "PathAgent.h"
 #include "Agent.h"
@@ -50,6 +50,8 @@ int main(int argc, char* argv[])
     //--------------------------------------------------------------------------------------
     int screenWidth = 800;
     int screenHeight = 450;
+
+    bool Game = true;
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 
@@ -81,7 +83,7 @@ int main(int argc, char* argv[])
     asciiMap.push_back("0000000000010110000010100");
     asciiMap.push_back("0000000000010010000010100");
     asciiMap.push_back("0000000000011110000010110");
-    asciiMap.push_back("0000000000000000000011110");
+    asciiMap.push_back("0000000000000000000011112");
     
 
     NodeMap nodeMap;   
@@ -126,10 +128,11 @@ int main(int argc, char* argv[])
     Agent agent(&nodeMap, new GoToPointBehaviour());    
     agent.setNode(start);
 
-    Agent agent2(&nodeMap, new WanderBehaviour());
+    Agent agent2(&nodeMap, fsm);
     agent2.setNode(nodeMap.GetRandomNode());
+    agent2.setTarget(&agent);
 
-    Agent agent3(&nodeMap, fsm);
+    Agent agent3(&nodeMap, utilityAI);
     agent3.setNode(nodeMap.GetRandomNode());
     agent3.setSpeed(32);
     agent3.setTarget(&agent);
@@ -207,6 +210,57 @@ int main(int argc, char* argv[])
 
         agent3.Update(deltaTime);
         agent3.Draw();
+
+
+
+        //check for win condition
+        if (agent.GetCurrentNode()->isEnd)
+        {
+            //cout << "You Win!" << endl;
+            Game = false;
+
+            while (!Game)
+            {
+                BeginDrawing();
+                ClearBackground(DARKGRAY);
+
+                //cout << "you win" << endl;
+
+                DrawText("You Win!", (GetScreenWidth() / 2) - (MeasureText("You Win!", 50) / 2), GetScreenHeight() / 2, 50, WHITE);
+                EndDrawing();
+
+                if (IsKeyPressed(KEY_ESCAPE))
+                {
+                    Game = true;
+                }
+            }
+        }
+
+        //cleck for loose conditions
+        if (agent.GetCurrentNode() == agent2.GetCurrentNode() || agent.GetCurrentNode() == agent3.GetCurrentNode())
+        {
+            Game = false;
+
+            while (!Game)
+            {
+                BeginDrawing();
+                ClearBackground(DARKGRAY);
+
+                //cout << "you win" << endl;
+
+                DrawText("You Loose!", (GetScreenWidth() / 2) - (MeasureText("You Win!", 50) / 2), GetScreenHeight() / 2, 50, WHITE);
+                EndDrawing();
+
+                if (IsKeyPressed(KEY_ESCAPE))
+                {
+                    Game = true;
+                }
+            }
+
+        }
+
+
+       
 
         EndDrawing();
         //----------------------------------------------------------------------------------

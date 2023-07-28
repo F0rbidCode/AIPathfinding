@@ -35,6 +35,8 @@ public:
 
 	//function to get the position of the pathAgent
 	glm::vec2 GetPosition() { return m_pathAgent.GetPosition(); }
+	//function to get the current node of the agent
+	Node* GetCurrentNode() { return m_pathAgent.GetCurrentNode(); }
 
 	//function to reset and clear the agents path
 	void Reset() { m_pathAgent.GetPath().clear(); }

@@ -43,6 +43,10 @@ void NodeMap::Initialise(std::vector<std::string> asciiMap, int cellSize)
 
 			//create a node for anything but a '.' character
 			m_nodes[x + m_width * y] = tile == emptySquare ? nullptr : new Node(((float)x + 0.5f) * m_cellSize, ((float)y + 0.5f)* m_cellSize);
+			if (tile == '2') //check if the tile being made should be a end tile
+			{
+				m_nodes[x + m_width * y]->isEnd = true; //if so set isEnd to true
+			}
 		}
 	}
 
@@ -85,6 +89,8 @@ void NodeMap::Draw()
 
 	Color lineColor = GRAY;
 
+	Color endColor = GREEN;
+
 	for (int y = 0; y < m_height; y++)
 	{
 		for (int x = 0; x < m_width; x++)
@@ -102,6 +108,11 @@ void NodeMap::Draw()
 				{
 					Node* other = node->connections[i].target;
 					DrawLine((x + 0.5f) * m_cellSize, (y + 0.5f) * m_cellSize, (int)other->position.x, (int)other->position.y, lineColor);
+				}
+				if (node->isEnd)//check if the tile being drawn is the end tile
+				{
+					//draw the end tile
+					DrawRectangle((int)(x * m_cellSize), (int)(y * m_cellSize), (int)m_cellSize - 1, (int)m_cellSize - 1, endColor); 
 				}
 			}
 		}

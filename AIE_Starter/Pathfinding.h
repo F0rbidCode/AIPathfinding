@@ -30,7 +30,10 @@ namespace AIForGames
 
         //used for A*
         float hScore;
-        float fScore;        
+        float fScore;  
+
+        //used to signify the end
+        bool isEnd = false;
     };
 
     std::vector<Node*> DijkstrasSearch(Node* startNode, Node* endNode);
