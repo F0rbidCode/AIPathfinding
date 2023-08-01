@@ -11,7 +11,7 @@ public:
 	Agent() {}
 	Agent(NodeMap* _nodeMap, Behaviour* _behaviour); /*: m_current(_behaviour), m_nodeMap(_nodeMap), m_color({ 255, 255, 0, 255 }) { m_current->Enter(this); }*/
 	
-	~Agent() { delete m_current; }
+	~Agent() { delete m_current;}
 
 	void Update(float deltaTime);
 	void Draw() { m_pathAgent.Draw(m_color); };

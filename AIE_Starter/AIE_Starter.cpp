@@ -25,7 +25,7 @@
 #define RAYGUI_SUPPORT_ICONS
 #include "raygui.h"
 #include "Pathfinding.h"
-//#include "memory.h"
+
 #include "NodeMap.h"
 #include "PathAgent.h"
 #include "Agent.h"
@@ -273,11 +273,11 @@ int main(int argc, char* argv[])
     
     //clean up
 
-    delete fsm;
+    /*delete fsm;
     fsm = nullptr;
 
     delete utilityAI;
-    utilityAI = nullptr;
+    utilityAI = nullptr;*/
 
     return 0;
 }
