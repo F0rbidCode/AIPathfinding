@@ -9,6 +9,6 @@ void GoToPointBehaviour::Update(Agent* agent, float deltaTime)
 	{
 		Vector2 mousePos = GetMousePosition(); //get the mouse position
 		agent->UpdateNode(agent->getNodeMap()->GetClosestNode(agent->GetPosition())); //reset the current node of the agent to the closest node to its x, y position
-		agent->GoTo(glm::vec2(mousePos.x, mousePos.y)); //call agents go to passing in the mouse position
+		agent->GoToD(glm::vec2(mousePos.x, mousePos.y)); //call agents go to passing in the mouse position using Gijjkstra search instead of A*
 	}
 }

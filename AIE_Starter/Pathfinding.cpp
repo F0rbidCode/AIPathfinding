@@ -125,6 +125,16 @@ std::vector<AIForGames::Node*> AIForGames::DijkstrasSearch(Node* startNode, Node
 		currentNode = currentNode->previous;
 	}
 
+	//if path is only 1 node
+	if (path.size() == 1)
+	{
+		path.clear(); //clear path
+	}
+	else if (path.front() != startNode) //check that the first node in the list is the start node
+	{
+		path.clear(); //if it is not, the path is invalid so clear the path
+	}
+
 	//return the path
 	return path;
 }
@@ -241,9 +251,9 @@ std::vector<AIForGames::Node*> AIForGames::AStarSearch(Node* startNode, Node* en
 	{
 		path.clear(); //clear path
 	}
-	else if (path.front() != startNode)
+	else if (path.front() != startNode) //check that the first node in the list is the start node
 	{
-		path.clear();
+		path.clear(); //if it is not, the path is invalid so clear the path
 	}
 
 	//return the path

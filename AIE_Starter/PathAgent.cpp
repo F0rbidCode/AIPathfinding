@@ -5,6 +5,12 @@ void PathAgent::GoToNode(Node* node)
 	m_currentIndex = 0; //reset the current index to 0
 }
 
+void PathAgent::GoToNodeD(Node* node)
+{
+	m_path = DijkstrasSearch(m_currentNode, node); //calculate the path to the end node
+	m_currentIndex = 0; //reset the current index to 0
+}
+
 void PathAgent::Update(float deltaTime)
 {
 	//if path is empty return

@@ -11,7 +11,7 @@ public:
 	Agent() {}
 	Agent(NodeMap* _nodeMap, Behaviour* _behaviour); /*: m_current(_behaviour), m_nodeMap(_nodeMap), m_color({ 255, 255, 0, 255 }) { m_current->Enter(this); }*/
 	
-	~Agent() { delete m_current; }
+	~Agent() { delete m_current;}
 
 	void Update(float deltaTime);
 	void Draw() { m_pathAgent.Draw(m_color); };
@@ -21,6 +21,7 @@ public:
 	void setColor(Color color) { m_color = color; }
 	void setTarget(Agent* target) { m_target = target; }
 	void GoTo(glm::vec2 point);
+	void GoToD(glm::vec2 point);
 	void GoTo(Node* node) { m_pathAgent.GoToNode(node); };
 
 	//helper function to report when path is complete

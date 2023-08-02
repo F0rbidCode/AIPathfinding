@@ -21,6 +21,14 @@ void Agent::GoTo(glm::vec2 point)
 	m_pathAgent.GoToNode(end); //call goToNode pasing in the end node
 }
 
+void Agent::GoToD(glm::vec2 point)
+{
+	m_targetPos = point;
+	Node* end = m_nodeMap->GetClosestNode(point);//find the closest node to the past in point
+	m_pathAgent.GoToNodeD(end); //call goToNode pasing in the end node
+}
+
+
 bool Agent::PathComplete()
 {
 	return m_pathAgent.GetPath().empty(); //check if the path is empty
