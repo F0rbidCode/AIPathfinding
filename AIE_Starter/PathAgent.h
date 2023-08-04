@@ -2,6 +2,7 @@
 #include <vector>
 #include "pathfinding.h"
 #include"raylib.h"
+#include "NodeMap.h"
 
 using namespace std;
 using namespace AIForGames;
@@ -24,8 +25,8 @@ public:
 	void UpdateNode(Node* start) { m_currentNode = start; } //used to update its node without moving its x,y positions
 	void setSpeed(float speed) { m_speed = speed; }
 	void Update(float deltaTiem);
-	void GoToNode(Node* node);
-	void GoToNodeD(Node* node);
+	void GoToNode(Node* node, NodeMap* nodeMap);
+	void GoToNodeD(Node* node, NodeMap* nodeMap);
 	void Draw(Color color);
 
 	//return the current node the agent is on

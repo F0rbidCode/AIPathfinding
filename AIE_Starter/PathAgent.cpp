@@ -1,13 +1,15 @@
 #include "PathAgent.h"
-void PathAgent::GoToNode(Node* node)
+void PathAgent::GoToNode(Node* node, NodeMap* nodeMap)
 {
 	m_path = AStarSearch(m_currentNode, node); //calculate the path to the end node
+	//m_path = nodeMap->SmoothPath(m_path);
 	m_currentIndex = 0; //reset the current index to 0
 }
 
-void PathAgent::GoToNodeD(Node* node)
+void PathAgent::GoToNodeD(Node* node, NodeMap* nodeMap)
 {
 	m_path = DijkstrasSearch(m_currentNode, node); //calculate the path to the end node
+	m_path = nodeMap->SmoothPath(m_path);
 	m_currentIndex = 0; //reset the current index to 0
 }
 

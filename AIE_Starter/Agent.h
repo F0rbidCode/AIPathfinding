@@ -22,7 +22,7 @@ public:
 	void setTarget(Agent* target) { m_target = target; }
 	void GoTo(glm::vec2 point);
 	void GoToD(glm::vec2 point);
-	void GoTo(Node* node) { m_pathAgent.GoToNode(node); };
+	void GoTo(Node* node) { m_pathAgent.GoToNode(node, m_nodeMap); };
 
 	//helper function to report when path is complete
 	bool PathComplete();

@@ -37,5 +37,17 @@ public:
 
 	//function used to togle nodes between walled off and path
 	Node* ToggleClosesNode(glm::vec2 worldPos, vector<string>& ascIIMap);
+
+	//function to check if a node is visable from annother node
+	bool IsVisableFrom(Node* start, Node* end);
+
+
+	//helper functions for checking if nodes are visable
+	Vector2 Vector2Subtract(glm::vec2 start, glm::vec2 end);
+	glm::vec2 Vector2Add(glm::vec2 first, Vector2 second);
+	Vector2 Vector2Scale(Vector2 delta, float scaler);
+
+	//function to smooth a path
+	vector<Node*> SmoothPath(vector<Node*> path);
 };
 

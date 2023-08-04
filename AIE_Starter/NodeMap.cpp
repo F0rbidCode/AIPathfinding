@@ -201,3 +201,103 @@ Node* NodeMap::ToggleClosesNode(glm::vec2 worldPos, vector<string>& ascIIMap)
 		ascIIMap[j][i] = emptyNode;
 	}
 }
+
+
+//function to check if a node is visable from annother node
+bool NodeMap::IsVisableFrom(Node* start, Node* end)
+{
+	//calculate a vector from start to end that is one cellsize in length
+	Vector2 delta = Vector2Subtract(end->position, start->position);
+	float distance = glm::distance(end->position, start->position);
+	delta = Vector2Scale(delta, m_cellSize / distance);
+
+	// steo forward in that direction one cell at a time from start towards end
+
+	for (float cells = 1.0f; cells < distance / m_cellSize; cells += 1.0f)
+	{
+		glm::vec2 testPosition = Vector2Add(start->position, Vector2Scale(delta, cells));
+
+		//if the square below is unpassable then we dont have line of sight from start to end
+		if (GetClosestNode(testPosition) == nullptr)
+			return false;
+	}
+
+	//we've traveled the whole path without an obstacle
+	return true;
+}
+
+//helper functions for checking if nodes are visable
+Vector2 NodeMap::Vector2Subtract(glm::vec2 start, glm::vec2 end)
+{ 
+	Vector2 distance;
+	distance.x = start.x - end.x; 
+	distance.y = start.y - end.y; 
+	return distance; 
+}
+
+Vector2 NodeMap::Vector2Scale(Vector2 delta, float scaler)
+{
+	delta.x = delta.x * scaler;
+	delta.y = delta.y * scaler;
+
+	return delta;
+}
+
+glm::vec2 NodeMap::Vector2Add(glm::vec2 first, Vector2 second)
+{
+	first.x = first.x + second.x;
+	first.y = first.y + second.y;
+
+	return first;
+}
+
+//function to smooth a path
+vector<Node*> NodeMap::SmoothPath(vector<Node*> path)
+{
+	if (!path.empty())
+	{
+		Node* currentNode = path.front(); //create a pointer to the current node
+		int i = 1; //used to iterate through the path
+		vector<Node*>::iterator it1 = path.begin(); //iterator to the node before fist node to be deleted
+		vector<Node*>::iterator it2 = path.begin() + 1; //iterator to the node after the last node to be deleted
+
+		int l = 1; //used to reset to the begginign of the path
+
+		Node* lastVisable = path[i]; //pointer to the last visable node
+
+		while (lastVisable != path.back()) //while the lastvisable node is not the last node in the path
+		{
+			while (IsVisableFrom(currentNode, lastVisable) && lastVisable != path.back())// while last visable node is visable from the current node and is not the last node
+			{
+
+				i++; //add 1 to the index
+				it2++; //increse the second iterator by 1 (move to the next node along the path)
+				lastVisable = path[i]; //set last visiable to the node at the index of i
+
+			}
+
+			currentNode = lastVisable; //set the new current node to the last visable node
+			path.erase(it1 + 1, it2 - 1); //erase all of the nodes in the bath between the 2 iterators
+
+			l+ 2; //add 1 to the starting point in the path
+			i = l; //set the index to the starting point
+
+			if (path[l + 1] != path.back())
+			{
+				it1 = path.begin() + l; //set the first iterator to the starting point
+				it2 = path.begin() + (l + 1); //set the second iterator to 1 after the starting point
+			}
+			else
+			{
+				lastVisable = path.back();
+			}
+			
+		}
+		return path; //return path
+	}
+	else //if the path is empty
+	{
+		path.clear(); //clear path
+		return path; //return the empty path
+	}
+}
