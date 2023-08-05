@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
     std::vector<std::string> asciiMap;
     asciiMap.push_back("0000000000000000000000000");
     asciiMap.push_back("0101110111000000011110000");
-    asciiMap.push_back("0101011101100000010010000");
+    asciiMap.push_back("0001011101100000010010000");
     asciiMap.push_back("0101000000000000010011100");
     asciiMap.push_back("0101111111100000010000100");
     asciiMap.push_back("0100000010000000110000110");
@@ -175,15 +175,20 @@ int main(int argc, char* argv[])
                 //call initialise on the node map with the modified ascii map
                 nodeMap.Initialise(asciiMap, CELL_SIZE);
 
-                //update all agents current node
-                agent.UpdateNode(nodeMap.GetClosestNode(agent.GetPosition()));
-                agent2.UpdateNode(nodeMap.GetClosestNode(agent2.GetPosition()));
-                agent3.UpdateNode(nodeMap.GetClosestNode(agent3.GetPosition()));
+                //set agents nodemap updated flag to true
+                agent.nodeMapUpdate = true;
+                agent2.nodeMapUpdate = true;
+                agent3.nodeMapUpdate = true;
 
-                //recalculate all agent paths
-                agent.GoTo(agent.GetTargetPos());
-                agent2.GoTo(agent2.GetTargetPos());
-                agent3.GoTo(agent3.GetTargetPos());
+                ////update all agents current node
+                //agent.UpdateNode(nodeMap.GetClosestNode(agent.GetPosition()));
+                //agent2.UpdateNode(nodeMap.GetClosestNode(agent2.GetPosition()));
+                //agent3.UpdateNode(nodeMap.GetClosestNode(agent3.GetPosition()));
+
+                ////recalculate all agent paths
+                //agent.GoTo(agent.GetTargetPos());
+                //agent2.GoTo(agent2.GetTargetPos());
+                //agent3.GoTo(agent3.GetTargetPos());
             }
 
         }
@@ -214,49 +219,55 @@ int main(int argc, char* argv[])
 
 
         //check for win condition
-        if (agent.GetCurrentNode()->isEnd)
+        if (agent.GetCurrentNode())
         {
-            //cout << "You Win!" << endl;
-            Game = false;
-
-            while (!Game)
+            if (agent.GetCurrentNode()->isEnd)
             {
-                BeginDrawing();
-                ClearBackground(DARKGRAY);
+                //cout << "You Win!" << endl;
+                Game = false;
 
-                //cout << "you win" << endl;
-
-                DrawText("You Win!", (GetScreenWidth() / 2) - (MeasureText("You Win!", 50) / 2), GetScreenHeight() / 2, 50, WHITE);
-                EndDrawing();
-
-                if (IsKeyPressed(KEY_ESCAPE))
+                while (!Game)
                 {
-                    Game = true;
+                    BeginDrawing();
+                    ClearBackground(DARKGRAY);
+
+                    //cout << "you win" << endl;
+
+                    DrawText("You Win!", (GetScreenWidth() / 2) - (MeasureText("You Win!", 50) / 2), GetScreenHeight() / 2, 50, WHITE);
+                    EndDrawing();
+
+                    if (IsKeyPressed(KEY_ESCAPE))
+                    {
+                        Game = true;
+                    }
                 }
             }
         }
 
         //cleck for loose conditions
-        if (agent.GetCurrentNode() == agent2.GetCurrentNode() || agent.GetCurrentNode() == agent3.GetCurrentNode())
+        if (agent.GetCurrentNode() && agent2.GetCurrentNode() && agent3.GetCurrentNode())
         {
-            Game = false;
-
-            while (!Game)
+            if (agent.GetCurrentNode() == agent2.GetCurrentNode() || agent.GetCurrentNode() == agent3.GetCurrentNode())
             {
-                BeginDrawing();
-                ClearBackground(DARKGRAY);
+                Game = false;
 
-                //cout << "you win" << endl;
-
-                DrawText("You Loose!", (GetScreenWidth() / 2) - (MeasureText("You Win!", 50) / 2), GetScreenHeight() / 2, 50, WHITE);
-                EndDrawing();
-
-                if (IsKeyPressed(KEY_ESCAPE))
+                while (!Game)
                 {
-                    Game = true;
-                }
-            }
+                    BeginDrawing();
+                    ClearBackground(DARKGRAY);
 
+                    //cout << "you win" << endl;
+
+                    DrawText("You Loose!", (GetScreenWidth() / 2) - (MeasureText("You Win!", 50) / 2), GetScreenHeight() / 2, 50, WHITE);
+                    EndDrawing();
+
+                    if (IsKeyPressed(KEY_ESCAPE))
+                    {
+                        Game = true;
+                    }
+                }
+
+            }
         }
 
 

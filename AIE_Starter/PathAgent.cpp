@@ -2,7 +2,7 @@
 void PathAgent::GoToNode(Node* node, NodeMap* nodeMap)
 {
 	m_path = AStarSearch(m_currentNode, node); //calculate the path to the end node
-	//m_path = nodeMap->SmoothPath(m_path);
+	m_path = nodeMap->SmoothPath(m_path);
 	m_currentIndex = 0; //reset the current index to 0
 }
 
@@ -88,4 +88,5 @@ void PathAgent::Update(float deltaTime)
 void PathAgent::Draw(Color color)
 {
 	DrawCircle((int)m_position.x, (int)m_position.y, 8, color);
+
 }

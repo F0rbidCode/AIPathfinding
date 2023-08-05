@@ -5,6 +5,16 @@ Agent::Agent(NodeMap* _nodeMap, Behaviour* _behaviour) : m_current(_behaviour), 
 
 void Agent::Update(float deltaTime)
 {
+	if (nodeMapUpdate)
+	{
+		if (m_nodeMap->GetClosestNode(m_pathAgent.GetPosition()))
+		{
+			UpdateNode(m_nodeMap->GetClosestNode(m_pathAgent.GetPosition()));
+			GoTo(m_targetPos);
+			nodeMapUpdate = false;
+		}
+	}
+
 	if (m_current)//if current behaviour not = NULL
 	{
 		//call update on current behaviour

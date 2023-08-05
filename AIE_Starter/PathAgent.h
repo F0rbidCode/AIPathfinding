@@ -22,7 +22,7 @@ public:
 	PathAgent() { m_speed = 64; }
 	vector<Node*> m_path;
 	void setNode(Node* start) { m_position = start->position, m_currentNode = start; }
-	void UpdateNode(Node* start) { m_currentNode = start; } //used to update its node without moving its x,y positions
+	void UpdateNode(Node* start) { if(start) m_currentNode = start; } //used to update its node without moving its x,y positions
 	void setSpeed(float speed) { m_speed = speed; }
 	void Update(float deltaTiem);
 	void GoToNode(Node* node, NodeMap* nodeMap);

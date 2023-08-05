@@ -14,7 +14,7 @@ public:
 	~Agent() { delete m_current;}
 
 	void Update(float deltaTime);
-	void Draw() { m_pathAgent.Draw(m_color); };
+	void Draw() { m_pathAgent.Draw(m_color);  /*m_nodeMap->DrawPath(m_pathAgent.GetPath())*/;};
 	void setNode(Node* start) { m_pathAgent.setNode(start); }
 	void UpdateNode(Node* start) { m_pathAgent.UpdateNode(start); } //used to update the path agents node without it changing its x,y position
 	void setSpeed(float speed) { m_pathAgent.setSpeed(speed); }
@@ -40,7 +40,10 @@ public:
 	Node* GetCurrentNode() { return m_pathAgent.GetCurrentNode(); }
 
 	//function to reset and clear the agents path
-	void Reset() { m_pathAgent.GetPath().clear(); }
+	void Reset() { m_pathAgent.GetPath().clear();}
+
+	//check if the node map has been updated.
+	bool nodeMapUpdate = false;
 
 private:
 	PathAgent m_pathAgent;
