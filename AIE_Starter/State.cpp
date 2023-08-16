@@ -15,11 +15,11 @@ void State::Update(Agent* agent, float deltaTime)
 	for (Behaviour* b : m_behaviours) b->Update(agent, deltaTime);
 }
 
-void State::AddTransition(DistanceCondition* DC, State* s)
+void State::AddTransition(Condition* C, State* s)
 {
 	Transition t; //create new transtion
 
-	t.condition = DC; //set condition to past in condition
+	t.condition = C; //set condition to past in condition
 	t.targetState = s; //set target state to passed in state
 
 	m_transitions.push_back(t); //push transition to m_transitions

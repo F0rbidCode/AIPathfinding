@@ -28,7 +28,7 @@ public:
 	virtual void Exit(Agent* agent) { m_behaviours.back()->Exit(agent); };
 
 	//function to add Transitions
-	void AddTransition(DistanceCondition* DC, State* s);
+	void AddTransition(Condition* C, State* s);
 
 	//function to return behaviours
 	vector<Behaviour*> GetBehaviours() { return m_behaviours; }
